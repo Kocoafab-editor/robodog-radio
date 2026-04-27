@@ -415,6 +415,16 @@ namespace robodog {
         executeRotationTarget(target, velocity, rotationWaitRelative);
     }
 
+    //% blockId=robodog_stop
+    //% block="stop Robodog"
+    //% group="Motion"
+    //% weight=94
+    export function stop(): void {
+        checkModeChange(0, 1);
+        txData[20] = 0;
+        clearRotationCommand();
+    }
+
     //% blockId=robodog_rotation_absolute
     //% block="return Robodog to start direction"
     //% angle.min=0 angle.max=360 angle.defl=0
@@ -465,6 +475,16 @@ namespace robodog {
             for (let n = 0; n < 8; n++)
                 txData[24 + offset + n] = encoded[n];
         }
+        stageHeadLedPayload();
+    }
+
+    //% blockId=robodog_headled_clear
+    //% block="clear Robodog head LED"
+    //% group="LED"
+    //% weight=86
+    export function headLedClear(): void {
+        txData[14] = txData[14] & 0x40;
+        clearHeadLedPayload();
         stageHeadLedPayload();
     }
 
