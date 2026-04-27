@@ -1,24 +1,43 @@
+# 로보독 라디오(Robodog Radio)
 
-> 이 페이지를 [https://kocoafab.github.io/robodog-radio/](https://kocoafab.github.io/robodog-radio/)으로 열기
+이 패키지는 **라디오 통신 전용 MakeCode 확장**입니다.
+로보독 기본 동작 블록과 함께 AI 블록을 사용할 수 있습니다.
+
+This package is the **radio-only MakeCode extension** for Robodog.
+It includes the base control blocks together with the AI blocks.
+
+* 시작할 때 `rfBand` 블록으로 라디오 밴드를 먼저 설정해야 합니다.
+* 이 패키지는 `radio` 의존성을 사용하므로 **micro:bit Bluetooth 블록과 함께 사용할 수 없습니다**.
+* Call `rfBand` first at startup to initialize the radio band.
+* This package depends on `radio`, so it **cannot be used together with the micro:bit Bluetooth blocks**.
+
+## 기본 사용법(Basic usage)
+
+```typescript
+robodog.rfBand(7)
+robodog.gesture(deflib.Posture.Ready)
+robodog.move(deflib.MoveDirection.Forward, 50)
+```
+
+```typescript
+robodog.rfBand(7)
+robodog.aiDetection(deflib.AiMode.FaceDetect)
+robodog.faceTracking(deflib.AiClass.Class1)
+
+basic.forever(function () {
+    serial.writeLine("camera: " + (robodog.getCameraAlive() ? "true" : "false"))
+    serial.writeValue("face", robodog.getFaceClass())
+    basic.pause(1000)
+})
+```
 
 ## 확장으로 사용
-
-이 저장소는 MakeCode에서 **확장**으로 추가될 수 있습니다.
 
 * [https://makecode.microbit.org/](https://makecode.microbit.org/) 열기
 * **새로운 프로젝트**에서 클릭
 * 톱니바퀴 모양 메뉴에서 **확장**을 클릭합니다
 * **https://github.com/kocoafab/robodog-radio**으로 검색하고 가져오기
 
-## 이 프로젝트 편집
-
-MakeCode에서 이 저장소를 편집합니다.
-
-* [https://makecode.microbit.org/](https://makecode.microbit.org/) 열기
-* **가져오기**를 클릭한 다음 **가져오기 URL**를 클릭합니다
-* **https://github.com/kocoafab/robodog-radio**를 붙여넣고 가져오기를 클릭하세요.
-
-#### 메타데이터(검색, 렌더링에 사용)
+## 지원제품(Supported targets)
 
 * for PXT/microbit
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
